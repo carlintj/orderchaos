@@ -1,18 +1,14 @@
-
-
 import React from 'react';
 import ReactDOM from 'react-dom';
-import GameStage from './components/gameStage';
+import Root from './containers/root';
+import configureStore from './store/store';
 
-//const store = configureStore(storage.get(APP_STORAGE) || {});
-/*
-store.subscribe(() => {
-  if(!storage.get('debug')) {
-    storage.set(APP_STORAGE, store.getState());
-  }
-});
-*/
+const store = configureStore();
+
+//store.subscribe(() =>  store.getState())
 ReactDOM.render(
-  <div><GameStage /></div>,
+  <div>
+    <Root store={store} />
+  </div>,
   document.getElementById('app')
 );

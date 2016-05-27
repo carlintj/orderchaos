@@ -1,21 +1,14 @@
 import {createStore, compose} from 'redux';
-import {persistState} from 'redux-devtools';
 import rootReducer from '../reducers';
-import DevTools from '../containers/DevTools';
+import DevTools from '../containers/devtools';
 
 const createStoreWithMiddleware = compose(
-  DevTools.instrument(),
-  persistState(getDebugSessionKey())
+  DevTools.instrument()
 )(createStore);
-
-function getDebugSessionKey() {
-  const matches = window.location.href.match(/[?&]debug_session=([^&]+)\b/);
-
-  return (matches && matches.length > 0) ? matches[1] : null;
-}
 
 export default function configureStore(initialState) {
   const store = createStoreWithMiddleware(rootReducer, initialState);
+  window.devToolsExtension ? window.devToolsExtension() : f => f
 
   if(module.hot) {
     // Enable Webpack hot module replacement for reducers
@@ -24,6 +17,8 @@ export default function configureStore(initialState) {
 
       store.replaceReducer(nextReducer);
     });
+
+
   }
 
   return store;

@@ -1,35 +1,50 @@
 import React from 'react';
+import GameSquare from './gameSquare';
+
 var PropTypes = React.PropTypes;
 
-let board = [
-    ['B','R','','','',''],
-    ['','','','','',''],
-    ['','','','B','',''],
-    ['','','','','',''],
-    ['','','','','',''],
-    ['','','','','','R'],
-  ]
+const styles = {
+    board: {
+        width: '100%',
+        height: '100%',
+        display: 'flex',
+        flexWrap: 'wrap'
+    },
+    boardContainer: {
+        width: '400px',
+        height: '400px',
+        border: '1px solid black'
+    },
+    cell: {
+        borderWidth: '1px',
+        borderStyle: 'solid'
+    },
+}
 
-var gameBoard = React.createClass({
+let gameBoard = React.createClass({
     propTypes: {
-        board: PropTypes.object
+        board: PropTypes.array,
+        handleMove: PropTypes.func
     },
     render: function() {
         let renderedBoard = [];
-        for(let row of board) {
-            let cells = [];
-            for(let column of row) {
+        const {board,handleClick} = this.props;
+        let black = false;
+        for(let x = 0; x < board.length; x++) {
+            for(let y = 0; y < board[x].length; y++) {
+                let key = `cell.${x}.${y}`;
                 let cell;
-                if(column === '') {
-                    cell = '-';
+                if(board[x][y] === '') {
+                    cell = 'X';
                 } else {
-                    cell = column;
+                    cell = board[x][y];
                 }
-                cells.push(<span>{cell}</span>);
+                renderedBoard.push(<GameSquare key={key} black={black} handleClick={handleClick.bind(null,x,y)}>{cell}</GameSquare>);
+                black = !black;
             }
-            renderedBoard.push(<div>{cells}</div>);
+            black = (x % 2 == 0);
         }
-        return <div>{renderedBoard}</div>;
+        return <div style={styles.boardContainer}><div style={styles.board}>{renderedBoard}</div></div>;
     }
 });
 

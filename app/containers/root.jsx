@@ -1,5 +1,7 @@
-if(process.env.NODE_ENV === 'production') {
-  module.exports = require('./rppt.prod.jsx');
+let forceDev = true;
+
+if(!forceDev && process.env.NODE_ENV === 'production') {
+  module.exports = require('./root.prod.jsx');
 }
 else {
   module.exports = require('./root.dev.jsx');

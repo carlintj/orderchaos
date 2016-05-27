@@ -5,23 +5,38 @@ import * as actions from '../app/actions/game';
 import {initialState} from '../app/reducers/initialState';
 import gameReducer from '../app/reducers/gameReducer';
 
+const stateOverOffByOne = {
+  'isOver': false,
+  'turn': 6,
+  'player1': 0,
+  'player2': 0,
+  'board': [
+    ['', '', '', '', '', ''],
+    ['', '', '', '', '', ''],
+    ['', '', '', '', '', ''],
+    ['', 'B', 'B', 'B', 'B', 'B'],
+    ['', '', '', '', '', ''],
+    ['', '', '', '', '', '']
+  ]
+}
+
 describe('perform move', () => {
   it('move by correct player should change board', () => {
     let action = actions.makeMove(0, 0, 'B', 1);
-    let s1 = gameReducer(initialState, action).toJS();
+    let s1 = gameReducer(initialState, action);
     expect(s1.board[0][0]).toEqual('B');
   });
 
   it('move by incorrect player should not change board', () => {
     let action = actions.makeMove(0, 0, 'B', 2);
-    let s1 = gameReducer(initialState, action).toJS();
+    let s1 = gameReducer(initialState, action);
     expect(s1.board[0][0]).toEqual('');
   });
 
   it('should calculate array pos from x y properly', () => {
     let x = 5, y = 5;
     let action = actions.makeMove(x, y, 'B', 1);
-    let s1 = gameReducer(initialState, action).toJS();
+    let s1 = gameReducer(initialState, action);
     expect(s1.board[x][y]).toEqual('B');
   });
 
@@ -32,12 +47,12 @@ describe('perform move', () => {
         let action = actions.makeMove(x, y, 'B', (y + 1) % 2);
         state = gameReducer(state, action);
       }
-      expect(state.toJS().isOver).toEqual(true);
+      expect(state.isOver).toEqual(true);
       for (let y = 1; y < 6; y++) {
         let action = actions.makeMove(x, y, 'B', (y + 1) % 2);
         state = gameReducer(state, action);
       }
-      expect(state.toJS().isOver).toEqual(true);
+      expect(state.isOver).toEqual(true);
     }
   });
 
@@ -48,12 +63,12 @@ describe('perform move', () => {
         let action = actions.makeMove(y, x, 'B', (y + 1) % 2);
         state = gameReducer(state, action);
       }
-      expect(state.toJS().isOver).toEqual(true);
+      expect(state.isOver).toEqual(true);
       for (let y = 1; y < 6; y++) {
         let action = actions.makeMove(y, x, 'B', (y + 1) % 2);
         state = gameReducer(state, action);
       }
-      expect(state.toJS().isOver).toEqual(true);
+      expect(state.isOver).toEqual(true);
     }
   });
 
@@ -65,7 +80,13 @@ describe('perform move', () => {
         let action = actions.makeMove(i + offset, i + offset, 'B', (i + 1) % 2);
         state = gameReducer(state, action);
       }
-      expect(state.toJS().isOver).toEqual(true);
+      expect(state.isOver).toEqual(true);
     }
+  });
+
+  it('should detect game over for 5 in a row starting off by 1', () => {
+    let action = actions.isOver();
+    let state = gameReducer(stateOverOffByOne, action);
+    expect(state.isOver).toEqual(true);
   });
 });

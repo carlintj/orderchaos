@@ -14,7 +14,7 @@ const PATHS = {
   style: path.join(__dirname, 'app/main.css')
 };
 const ENV = {
-  host: process.env.HOST || 'localhost',
+  host: process.env.HOST || '0.0.0.0',
   port: process.env.PORT || 8080
 };
 

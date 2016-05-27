@@ -1,9 +1,14 @@
 export default function performMove(state, x, y, color, player) {
-  if(state.get('turn') % 2 !== player) {
+  if(((state.turn + player) % 2) !==0) {
     return state;
   }
 
-  return state
-      .set('turn', state.get('turn') + 1)
-      .setIn(['board', x, y], color);
+  if(state.board[x][y] !== '') {
+    return state;
+  }
+
+
+  state.turn = state.turn +  1;
+  state.board[x][y] = color;
+  return state;
 }

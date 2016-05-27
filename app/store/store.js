@@ -1,6 +1,8 @@
-if(process.env.NODE_ENV === 'production') {
-  module.exports = require('./configureStore.prod');
+let forceDev = true;
+
+if(!forceDev && process.env.NODE_ENV === 'production') {
+  module.exports = require('./store.prod');
 }
 else {
-  module.exports = require('./configureStore.dev');
+  module.exports = require('./store.dev');
 }
