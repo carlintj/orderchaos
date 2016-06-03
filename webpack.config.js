@@ -68,7 +68,13 @@ if(TARGET === 'start' || !TARGET) {
       // parse host and port from env so this is easy
       // to customize
       host: ENV.host,
-      port: ENV.port
+      port: ENV.port,
+      proxy: {
+         '/api*': {
+            target: 'http://localhost:8081',
+            secure: false
+          }
+      }
     },
     module: {
       loaders: [

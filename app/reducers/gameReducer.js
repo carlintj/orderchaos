@@ -3,6 +3,7 @@ import {initialState} from './initialState';
 import performMove from './performMove';
 import isOver from './isOver';
 import dumpState from './dumpState';
+import testAsync from './testAsync';
 import _ from 'lodash';
 
 export default function (state = initialState, action) {
@@ -15,6 +16,10 @@ export default function (state = initialState, action) {
       return dumpState(newState);
     case types.IS_OVER:
       return isOver(newState);
+    case types.TEST_ASYNC_SUCCESS:
+      //return testAsync(newState, action.message)
+      testAsync(newState, action.message);
+      return newState;
     default:
       console.warn('Unknown action', action)
       return newState;

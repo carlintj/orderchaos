@@ -1,7 +1,8 @@
 export const MAKE_MOVE = 'MAKE_MOVE';
 export const DUMP_STATE = 'DUMP_STATE';
 export const IS_OVER = 'IS_OVER';
-
+export const TEST_ASYNC = 'TEST_ASYNC';
+export const TEST_ASYNC_SUCCESS = 'TEST_ASYNC_SUCCESS';
 
 export function makeMove(x, y, color, player) {
   return {
@@ -22,5 +23,22 @@ export function dumpState() {
 export function isOver() {
   return {
     type: IS_OVER
+  }
+}
+
+export function testAsyncSuccess(message) {
+  return {
+    type: TEST_ASYNC_SUCCESS,
+    message
+  }
+}
+
+export function testAsync(message) {
+  console.log('creating message');
+  return function(dispatch) {
+    return fetch('https://www.google.com/search?q=secret+sauce').then(() => {
+      var ed = testAsyncSuccess(message);
+      dispatch(ed);
+    });
   }
 }
