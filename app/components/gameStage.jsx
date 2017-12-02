@@ -1,25 +1,21 @@
-import React, {PropTypes} from 'react';
+import React from 'react';
 import GameBoard from './gameBoard';
 import GamePiecePicker from './gamePiecePicker';
-import {DragDropContext} from 'react-dnd';
+import { DragDropContext } from 'react-dnd';
 import HTML5Backend from 'react-dnd-html5-backend';
 
-let gameStage = React.createClass({
-    propTypes: {
-        board: PropTypes.array,
-        handleClick: PropTypes.func.isRequired,
-        dumpState: PropTypes.func.isRequired
-    },
-    render: function () {
-        const {board, handleClick, dumpState} = this.props;
+class GameStage extends React.Component {
+    render() {
+        const { board, handleClick, dumpState, turn } = this.props;
         return (
             <div>
-                <GamePiecePicker />
+                <GamePiecePicker turn={turn} />
                 <GameBoard board={board} handleClick={handleClick}/>
                 <div onClick={dumpState}>Dump State</div>
             </div>
         );
     }
-});
 
-export default DragDropContext(HTML5Backend)(gameStage);
+}
+
+export default DragDropContext(HTML5Backend)(GameStage);

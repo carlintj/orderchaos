@@ -1,23 +1,7 @@
 import React from 'react';
-var DragSource = require('react-dnd').DragSource;
+import DragableGamePiece from './dragableGamePiece';
+import StaticGamePiece from './staticGamePiece';
 
-const pieceSource = {
-  beginDrag(props) {
-    return {color: props.color};
-  }
-}
+let gamePiece = (props) => props.enabled ? <DragableGamePiece color={props.color} /> : <StaticGamePiece color={props.color}/>;
 
-function collect(connect, monitor) {
-  return {
-    connectDragSource: connect.dragSource(),
-    isDragging: monitor.isDragging()
-  }
-}
-
-let gamePieceSL = (props) => props.connectDragSource(
-  <span style={{fontSize: '3em', fontWeight: props.isDragging ? 'bold' : '', cursor: 'move'}}>
-    {props.color}
-  </span>);
-
-
-export default DragSource('gamePiece', pieceSource, collect)(gamePieceSL);
+export default gamePiece;

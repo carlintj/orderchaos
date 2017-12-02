@@ -25,7 +25,7 @@ const common = {
     app: PATHS.app
   },
   resolve: {
-    extensions: ['', '.js', '.jsx']
+    extensions: ['.js', '.jsx']
   },
   output: {
     path: PATHS.build,
@@ -35,7 +35,12 @@ const common = {
     loaders: [
       {
         test: /\.jsx?$/,
-        loaders: ['babel?cacheDirectory'],
+        loaders: ['babel-loader'],
+        include: PATHS.app
+      },
+       {
+        test: /\.js?$/,
+        loaders: ['babel-loader'],
         include: PATHS.app
       }
     ]
@@ -61,6 +66,7 @@ if(TARGET === 'start' || !TARGET) {
       hot: true,
       inline: true,
       progress: true,
+      disableHostCheck: true,
 
       // display only errors to reduce the amount of output
       stats: 'errors-only',
@@ -70,10 +76,7 @@ if(TARGET === 'start' || !TARGET) {
       host: ENV.host,
       port: ENV.port,
       proxy: {
-         '/api*': {
-            target: 'http://localhost:8081',
-            secure: false
-          }
+         '/api': 'http://localhost:8081'
       }
     },
     module: {
@@ -81,7 +84,7 @@ if(TARGET === 'start' || !TARGET) {
         // Define development specific CSS setup
         {
           test: /\.css$/,
-          loaders: ['style', 'css'],
+          loaders: ['style-loader', 'css-loader'],
           include: PATHS.app
         }
       ]
@@ -105,8 +108,7 @@ if(TARGET === 'build' || TARGET === 'stats') {
     },
     output: {
       path: PATHS.build,
-      filename: '[name].[chunkhash].js',
-      chunkFilename: '[chunkhash].js'
+      filename: '[name].js'
     },
     module: {
       loaders: [
@@ -121,11 +123,8 @@ if(TARGET === 'build' || TARGET === 'stats') {
     plugins: [
       new CleanPlugin([PATHS.build]),
       // Output extracted CSS to a file
-      new ExtractTextPlugin('styles.[chunkhash].css'),
+      new ExtractTextPlugin('styles.css'),
       // Extract vendor and manifest files
-      new webpack.optimize.CommonsChunkPlugin({
-        names: ['vendor', 'manifest']
-      }),
       // Setting DefinePlugin affects React library size!
       new webpack.DefinePlugin({
         'process.env.NODE_ENV': '"production"'

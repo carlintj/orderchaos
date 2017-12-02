@@ -7,7 +7,7 @@ import testAsync from './testAsync';
 import _ from 'lodash';
 
 export default function (state = initialState, action) {
-  let newState =_.cloneDeep(state);
+  let newState = {...state};
   switch (action.type) {
     case types.MAKE_MOVE:
       let {x, y, color, player} = action;

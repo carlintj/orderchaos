@@ -36,7 +36,7 @@ export function testAsyncSuccess(message) {
 export function testAsync(message) {
   console.log('creating message');
   return function(dispatch) {
-    return fetch('https://www.google.com/search?q=secret+sauce').then(() => {
+    return fetch('/api/').then(() => {
       var ed = testAsyncSuccess(message);
       dispatch(ed);
     });

@@ -1,14 +1,14 @@
-var express = require('express');
-var app = express();
+import http from 'http'
+import app from './server'
 
-app.get('/api/', function (req, res) {
-  res.send('api index!');
-});
+const server = http.createServer(app)
+let currentApp = app
+server.listen(8081)
 
-app.get('*', function (req, res) {
-  res.send(req.originalUrl);
-});
-
-app.listen(8081, function () {
-  console.log('Example app listening on port 8081!');
-});
+if (module.hot) {
+ module.hot.accept('./server', () => {
+  server.removeListener('request', currentApp)
+  server.on('request', app)
+  currentApp = app
+ })
+}

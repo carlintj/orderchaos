@@ -29,10 +29,16 @@ export default class App extends React.Component {
       <div>
         <div>
           <div>Turn: {gameReducer.turn}</div>
-          <div>isOver: {gameReducer.isOver }</div>
+          <div>isOver: {gameReducer.isOver ? 'Yes' : 'No' }</div>
           <div onClick={this.testAsync.bind(this)}>test asyc</div>
         </div>
-        <GameStage board={gameReducer.board} handleClick={this.move.bind(this) } dumpState={this.dumpState.bind(this) }/>
+        <GameStage 
+          board={gameReducer.board} 
+          handleClick={this.move.bind(this) } 
+          dumpState={this.dumpState.bind(this) }
+          turn={gameReducer.turn}
+          
+        />
       </div>
     );
   }

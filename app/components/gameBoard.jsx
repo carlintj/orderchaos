@@ -1,8 +1,6 @@
 import React from 'react';
 import GameSquare from './gameSquare';
 
-var PropTypes = React.PropTypes;
-
 const styles = {
     board: {
         width: '100%',
@@ -19,14 +17,10 @@ const styles = {
         borderWidth: '1px',
         borderStyle: 'solid'
     },
-}
+};
 
-let gameBoard = React.createClass({
-    propTypes: {
-        board: PropTypes.array,
-        handleMove: PropTypes.func
-    },
-    render: function() {
+export default class GameBoard extends React.Component{
+    render () {
         let renderedBoard = [];
         const {board,handleClick} = this.props;
         let black = false;
@@ -46,6 +40,4 @@ let gameBoard = React.createClass({
         }
         return <div style={styles.boardContainer}><div style={styles.board}>{renderedBoard}</div></div>;
     }
-});
-
-export default gameBoard;
+};
