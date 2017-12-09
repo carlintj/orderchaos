@@ -1,10 +1,7 @@
 import express from 'express';
 import initialState from '../app/reducers/initialState';
-import _ from 'lodash';
 
 //this needs to be persisted at some point
-
-
 const app = express()
 
 app.get('/api', (req, res) => {

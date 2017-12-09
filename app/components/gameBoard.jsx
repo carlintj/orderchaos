@@ -1,4 +1,3 @@
-import React from 'react';
 import GameSquare from './gameSquare';
 
 const styles = {

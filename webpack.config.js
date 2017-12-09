@@ -51,6 +51,10 @@ const common = {
       title: 'Kanban app',
       appMountId: 'app',
       inject: false
+    }),
+    new webpack.ProvidePlugin({
+      _: 'lodash',
+      React: 'react'
     })
   ]
 };

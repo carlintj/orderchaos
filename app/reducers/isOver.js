@@ -1,6 +1,4 @@
-import _ from 'lodash';
-import {ORDER, CHAOS} from '../constants/gameConstants';
-
+import {ORDER, CHAOS} from '../constants/gameConstants'
 let starts = [];
 for (let x = 0; x < 2; x++) {
   for (let y = 0; y < 2; y++) {
@@ -13,8 +11,7 @@ for (let x = 0; x < 2; x++) {
 function isSliceComplete(slice) {
   const color = slice[0];
   if (color === '') return false; //blanks don't count
-  if (color != ORDER) return false; //only want ORDER straights
-  for (let i = 1; i < 5; i++) {
+    for (let i = 1; i < 5; i++) {
     if (color !== slice[i]) {
       return false;
     }
@@ -38,7 +35,7 @@ const isDiagonalComplete = (board) => {
     for (let i = 0; i < 5; i++) {
       let color = board[start.x + i][start.y + i];
       //quit this check since we've hit a blank or a chaos piece
-      if ((color === '') || (color != ORDER)) continue; 
+      if (color === '') continue; 
       slice.push(color);
     }
     if (slice.length === 5 && (isSliceComplete(slice))) {
@@ -51,20 +48,47 @@ const isDiagonalComplete = (board) => {
 let isOrderWinner = (state) => {
   let board = state.board;
   let t = _.zip.apply(_, state.board);
+
   return isStraightComplete(board) ||
     isStraightComplete(t) ||
     isDiagonalComplete(board) ||
     isDiagonalComplete(t);
 }
 
-export default function (state) {
-  let newState = state;
-  let orderWon = isOrderWinner(state);
-  let chaosWon = false; //todo
-  newState.isOver = orderWon || chaosWon;
-  if(newState.isOver) {
-    newState.winner = orderWon ? 'ORDER' : 'CHAOS';
+let isBoardFull = (state) => {
+  for(let x = 0; x < 6; x++) {
+    for(let y = 0; y < 6; y++) {
+      if(state.board[x][y] == '') {
+        return false;
+      }
+    }
   }
-  
-  return newState;
+  return true;
+}
+
+let isChaosWinner = (state) => {
+  return isBoardFull(state);
+}
+
+export default function (state) {
+  let orderWon = isOrderWinner(state);
+  let chaosWon = false;
+
+  if(!orderWon) {
+   chaosWon = isChaosWinner(state); 
+  }
+
+  state.isOver = orderWon || chaosWon;
+  if(state.isOver) {
+    state.winner = orderWon ? ORDER : CHAOS;
+
+    state.numberofGamesFinished++;
+    if(state.winner == ORDER) {
+      state.orderWins++;
+    } else {
+      state.chaosWins++;
+    }
+
+  }
+  return state;
 }

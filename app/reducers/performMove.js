@@ -7,7 +7,6 @@ export default function performMove(state, x, y, color, player) {
     return state;
   }
 
-
   state.turn = state.turn +  1;
   state.board[x][y] = color;
   return state;

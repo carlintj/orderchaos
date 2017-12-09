@@ -3,6 +3,10 @@ export const DUMP_STATE = 'DUMP_STATE';
 export const IS_OVER = 'IS_OVER';
 export const TEST_ASYNC = 'TEST_ASYNC';
 export const TEST_ASYNC_SUCCESS = 'TEST_ASYNC_SUCCESS';
+export const CLICK_AUTOPLAY_ORDER = 'CLICK_AUTOPLAY_ORDER';
+export const CLICK_AUTOPLAY_CHAOS = 'CLICK_AUTOPLAY_CHAOS';
+export const CLICK_AUTORESTART = 'CLICK_AUTORESTART';
+export const RESTART_GAME = 'RESTART_GAME';
 
 export function makeMove(x, y, color, player) {
   return {
@@ -26,6 +30,30 @@ export function isOver() {
   }
 }
 
+export function clickAutoplayOrder() {
+  return {
+    type: CLICK_AUTOPLAY_ORDER
+  }
+}
+
+export function clickAutoplayChaos() {
+  return {
+    type: CLICK_AUTOPLAY_CHAOS
+  }
+}
+
+export function clickAutorestart() {
+  return {
+    type: CLICK_AUTORESTART
+  }
+}
+
+export function restartGame() {
+  return {
+    type: RESTART_GAME
+  }
+}
+
 export function testAsyncSuccess(message) {
   return {
     type: TEST_ASYNC_SUCCESS,
@@ -34,7 +62,6 @@ export function testAsyncSuccess(message) {
 }
 
 export function testAsync(message) {
-  console.log('creating message');
   return function(dispatch) {
     return fetch('/api/').then(() => {
       var ed = testAsyncSuccess(message);

@@ -1,4 +1,3 @@
-import React from 'react';
 var DropTarget = require('react-dnd').DropTarget;
 
 const squareTarget = {

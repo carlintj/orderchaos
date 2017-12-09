@@ -7,7 +7,7 @@
     "stats": "webpack --profile --json > stats.json",
     "build": "webpack",
     "start": "webpack-dev-server -p --config webpack.config.js",
-    "test": "mocha --compilers js:babel-core/register --recursive",
+    "test": "mocha --require babel-core/register --recursive",
     "test:watch": "npm test -- --watch",
     "lint": "eslint . --ext .js --ext .jsx --fix",
     "buildserver": "webpack -p --config webpack.server.config.js",

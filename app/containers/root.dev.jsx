@@ -1,12 +1,10 @@
-import React from 'react';
 import {Provider} from 'react-redux';
 import App from './app';
-import DevTools from './devtools';
-
+//import DevTools from './devtools';
+//<DevTools />
 export default ({store}) =>
   <Provider store={store}>
     <div>
       <App />
-      <DevTools />
     </div>
   </Provider>
