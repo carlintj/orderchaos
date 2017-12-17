@@ -5,7 +5,8 @@ import * as actions from '../app/actions/game';
 import {initialState} from '../app/reducers/initialState';
 import gameReducer from '../app/reducers/gameReducer';
 import {RED, BLUE, ORDER, CHAOS} from '../app/constants/gameConstants';
-import isOver from '../app/reducers/isOver'
+import isOver from '../app/reducers/isOver';
+
 
 
 describe('order wins', () => {

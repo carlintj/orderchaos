@@ -5,7 +5,10 @@ import * as actions from '../app/actions/game';
 import {initialState} from '../app/reducers/initialState';
 import gameReducer from '../app/reducers/gameReducer';
 import {RED, BLUE} from '../app/constants/gameConstants';
-import isOver from '../app/reducers/isOver'
+import isOver from '../app/reducers/isOver';
+
+global._ = require('lodash');
+
 
 describe('perform move', () => {
   it('move by correct player should change board', () => {
