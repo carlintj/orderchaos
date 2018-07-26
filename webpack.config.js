@@ -32,7 +32,7 @@ const common = {
     filename: '[name].js'
   },
   module: {
-    loaders: [
+    rules: [
       {
         test: /\.jsx?$/,
         loaders: ['babel-loader'],
@@ -48,7 +48,7 @@ const common = {
   plugins: [
     new HtmlwebpackPlugin({
       template: 'node_modules/html-webpack-template/index.ejs',
-      title: 'Kanban app',
+      title: 'Learning',
       appMountId: 'app',
       inject: false
     }),
@@ -84,7 +84,7 @@ if(TARGET === 'start' || !TARGET) {
       }
     },
     module: {
-      loaders: [
+      rules: [
         // Define development specific CSS setup
         {
           test: /\.css$/,
@@ -115,7 +115,7 @@ if(TARGET === 'build' || TARGET === 'stats') {
       filename: '[name].js'
     },
     module: {
-      loaders: [
+      rules: [
         // Extract CSS during build
         {
           test: /\.css$/,

@@ -29,6 +29,8 @@ let createPlayer = (logic, scoreReward) => {
     
     let lastState = {};
     let lastMove = {};
+
+
     return {
         moves: () => moves,
         states: () => states,
@@ -51,7 +53,6 @@ let createPlayer = (logic, scoreReward) => {
             //else create board with list of moves and pick random move
             
             let board = hashboard(gameReducer.board);
-            console.log(board);
             if(!states[board]) {
                 states[board] = {moves : {}};
             }

@@ -13,7 +13,7 @@ global._ = _;
 let learning = true;
 let lastPlayer = -1;
 
-let gamesToRun = 100000;
+let gamesToRun = 0;
 
 let state = _.cloneDeep(initialState);
 for (let x = 0; x < gamesToRun; x++) {
@@ -50,8 +50,10 @@ for (let x = 0; x < gamesToRun; x++) {
      switch (lastPlayer) {
             case CHAOS:
                 chaosplayer.recordResult(aistate);
+                break;
             case ORDER:
                 orderplayer.recordResult(aistate);
+                break;
         }
 
     let action = actions.restartGame();
