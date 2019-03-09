@@ -1,5 +1,5 @@
 import {DragSource} from 'react-dnd';
-
+import * as React from 'react';
 const pieceSource = {
   beginDrag(props) {
     return {color: props.color};
@@ -14,7 +14,7 @@ function collect(connect, monitor) {
 };
 
 let gamePieceSL = (props) => props.connectDragSource(
-  <span style={{fontSize: '3em', fontWeight: props.isDragging ? 'bold' : '', cursor: 'move'}}>
+  <span style={{fontSize: '3em', fontWeight: props.isDragging ? 'bold' : 'normal', cursor: 'move'}}>
     {props.color}
   </span>);
 

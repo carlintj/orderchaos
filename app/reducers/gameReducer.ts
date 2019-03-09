@@ -5,7 +5,8 @@ import isOver from './isOver';
 import dumpState from './dumpState';
 import restartGame from './restartGame';
 
-export default function (state = initialState, action) {
+//need a base type for actions to leverage patern matching
+export default function (state = initialState, action : any) {
   let newState = {...state};
   switch (action.type) {
     case types.MAKE_MOVE:

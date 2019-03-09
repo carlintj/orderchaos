@@ -1,10 +1,13 @@
+import * as React from 'react';
 import {connect} from 'react-redux';
 import GameStage from '../components/gameStage';
 //import {makeMove, dumpState, testAsync, clickAutoplayOrder, clickAutoplayChaos, clickAutorestart} from '../actions/game';
 import * as actions from '../actions/game';
+import gameReducer from '../reducers/gameReducer';
 
+// @ts-ignore
 @connect(state => state)
-export default class App extends React.Component {
+export default class App extends React.Component<{dispatch: (action: any) => void, gameReducer}, any> {
   move(x, y, color) {
     let {dispatch, gameReducer} = this.props;
     var action = actions.makeMove(x, y, color, gameReducer.turn);

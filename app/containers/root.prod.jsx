@@ -1,5 +1,5 @@
 import {Provider} from 'react-redux';
-import App from './app.jsx';
+import App from './app';
 
 export default ({store}) =>
   <Provider store={store}>

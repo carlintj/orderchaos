@@ -25,7 +25,7 @@ const common = {
     app: PATHS.app
   },
   resolve: {
-    extensions: ['.js', '.jsx']
+    extensions: ['.js', '.jsx', '.ts', '.tsx']
   },
   output: {
     path: PATHS.build,
@@ -33,18 +33,15 @@ const common = {
   },
   module: {
     rules: [
-      {
-        test: /\.jsx?$/,
-        loaders: ['babel-loader'],
-        include: PATHS.app
-      },
-       {
-        test: /\.js?$/,
-        loaders: ['babel-loader'],
-        include: PATHS.app
+      { 
+        test: /\.(t|j)sx?$/, 
+        use: { 
+          loader: 'awesome-typescript-loader' 
+        } 
       }
     ]
   },
+
   plugins: [
     new HtmlwebpackPlugin({
       template: 'node_modules/html-webpack-template/index.ejs',
@@ -54,17 +51,19 @@ const common = {
     }),
     new webpack.ProvidePlugin({
       _: 'lodash',
-      React: 'react'
+      React: 'react',
+      ReactDOM: 'react-dom'
     })
   ]
 };
 
 if(TARGET === 'start' || !TARGET) {
   module.exports = merge(common, {
+    mode: 'development',
     entry: {
       style: PATHS.style
     },
-    devtool: 'eval-source-map',
+    devtool: 'source-map',
     devServer: {
       historyApiFallback: true,
       hot: true,

@@ -8,7 +8,7 @@ export const CLICK_AUTOPLAY_CHAOS = 'CLICK_AUTOPLAY_CHAOS';
 export const CLICK_AUTORESTART = 'CLICK_AUTORESTART';
 export const RESTART_GAME = 'RESTART_GAME';
 
-export function makeMove(x, y, color, player) {
+export function makeMove(x : number, y : number, color, player) {
   return {
     type: MAKE_MOVE,
     x,
@@ -54,15 +54,15 @@ export function restartGame() {
   }
 }
 
-export function testAsyncSuccess(message) {
+export function testAsyncSuccess(message : string) {
   return {
     type: TEST_ASYNC_SUCCESS,
     message
   }
 }
 
-export function testAsync(message) {
-  return function(dispatch) {
+export function testAsync(message : string) {
+  return (dispatch) => {
     return fetch('/api/').then(() => {
       var ed = testAsyncSuccess(message);
       dispatch(ed);

@@ -1,5 +1,7 @@
+import * as _ from 'lodash';
+
 import {ORDER, CHAOS} from '../constants/gameConstants'
-let starts = [];
+let starts : {x : number, y: number}[]= [];
 for (let x = 0; x < 2; x++) {
   for (let y = 0; y < 2; y++) {
     if (x + y < 3) {
@@ -8,7 +10,7 @@ for (let x = 0; x < 2; x++) {
   }
 }
 
-function isSliceComplete(slice) {
+function isSliceComplete(slice : string[]) {
   const color = slice[0];
   if (color === '') return false; //blanks don't count
     for (let i = 1; i < 5; i++) {
@@ -19,7 +21,7 @@ function isSliceComplete(slice) {
   return true;
 }
 
-const isStraightComplete = (board) => {
+const isStraightComplete = (board : string[][]) => {
   for (let x = 0; x < 6; x++) {
     for (let y = 0; y < 2; y++) {
       let slice = _.slice(board[x], y, 5 + y);
@@ -29,12 +31,12 @@ const isStraightComplete = (board) => {
   return false;
 }
 
-const isDiagonalComplete = (board) => {
+const isDiagonalComplete = (board : string[][]) => {
   for (let start of starts) {
-    let slice = [];
+    let slice : string[] = [];
     for (let i = 0; i < 5; i++) {
       let color = board[start.x + i][start.y + i];
-      //quit this check since we've hit a blank or a chaos piece
+      //quit this check since we've hit a blank
       if (color === '') continue; 
       slice.push(color);
     }
@@ -45,7 +47,7 @@ const isDiagonalComplete = (board) => {
   return false;
 }
 
-let isOrderWinner = (state) => {
+let isOrderWinner = (state : {board : string[][]}) => {
   let board = state.board;
   let t = _.zip.apply(_, state.board);
 
@@ -55,7 +57,7 @@ let isOrderWinner = (state) => {
     isDiagonalComplete(t);
 }
 
-let isBoardFull = (state) => {
+let isBoardFull = (state : {board : string[][]}) => {
   for(let x = 0; x < 6; x++) {
     for(let y = 0; y < 6; y++) {
       if(state.board[x][y] == '') {

@@ -1,11 +1,13 @@
 import GameSquare from './gameSquare';
+import * as React from 'react';
+
 
 const styles = {
     board: {
         width: '100%',
         height: '100%',
         display: 'flex',
-        flexWrap: 'wrap'
+        flexWrap: 'revert'
     },
     boardContainer: {
         width: '400px',
@@ -18,15 +20,15 @@ const styles = {
     },
 };
 
-export default class GameBoard extends React.Component{
+export default class GameBoard extends React.Component<any, any>{
     render () {
-        let renderedBoard = [];
+        let renderedBoard : JSX.Element[] = [];
         const {board,handleClick} = this.props;
         let black = false;
         for(let x = 0; x < board.length; x++) {
             for(let y = 0; y < board[x].length; y++) {
                 let key = `cell.${x}.${y}`;
-                let cell;
+                let cell : string;
                 if(board[x][y] === '') {
                     cell = 'X';
                 } else {
@@ -37,6 +39,9 @@ export default class GameBoard extends React.Component{
             }
             black = (x % 2 == 0);
         }
-        return <div style={styles.boardContainer}><div style={styles.board}>{renderedBoard}</div></div>;
+
+        //having an issue with the flexWrap style
+        // @ts-ignore
+        return <div style={styles.boardContainer}><div style={styles.board }>{renderedBoard}</div></div>;
     }
 };
